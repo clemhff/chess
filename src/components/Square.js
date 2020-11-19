@@ -4,7 +4,7 @@ import '.././css/square.css';
 
 function Square(prop) {
   return (
-    <div className="square">
+    <div className="square" onClick={() => prop.clickSquare(prop)}>
     {prop.obj.piece}
     </div>
   );

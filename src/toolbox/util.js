@@ -2,9 +2,9 @@
 
   //let firstline =
 
-  function range(start, end) {
+  /*function range(start, end) {
     return Array(end - start + 1).fill().map((_, idx) => start + idx)
-  }
+  }*/
 
   function ObjSquare(x1, y1) { // Square property
     this.x =  x1,
@@ -26,7 +26,7 @@
       })
       return y;
     });
-    console.log(squares);
+    //console.log(squares);
     return squares;
   }
 
@@ -60,4 +60,5 @@
 
   }
 
-export {range, initiateAxis, initiateBoard};
+
+export {initiateBoard};
