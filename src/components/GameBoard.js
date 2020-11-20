@@ -12,6 +12,10 @@ function GameBoard() {
   const [squares, ] = useState(initiateBoard());
   const [selected, setSelected] = useState('');
   const [possible, setPossible] =useState('');
+  const [turn, ] =useState(2);
+
+
+
 
 
   function renderLine(h) {
@@ -27,6 +31,9 @@ function GameBoard() {
     return h;
   }
 
+
+
+
   function renderTable() {
     let key = 0;
     let board = squares.map(h => {
@@ -35,6 +42,11 @@ function GameBoard() {
     });
     return board;
   }
+
+
+
+
+
 
   function pieceMove(piece) {
 
@@ -69,6 +81,10 @@ function GameBoard() {
     }
   }
 
+
+
+
+
   function deleteOutMoves(moves, x, y) {
 
     let addMoveToPosition = moves.map(catMoves => {
@@ -88,9 +104,10 @@ function GameBoard() {
     return filterOut;
   }
 
+
+
+
   function pieceBlocked(squares, arrayMove, obj) {
-
-
 
     let moveNotBlocked = arrayMove.map(catMoves => {
 
@@ -107,9 +124,7 @@ function GameBoard() {
           filter.push(catMoves[i]);
           stopGoingFurther() ;
         }
-        else {stopGoingFurther() ;}
-
-
+        else {stopGoingFurther();}
       }
       return filter;
     });
@@ -117,7 +132,44 @@ function GameBoard() {
     return moveNotBlocked;
   }
 
+
+  function pawnMove(obj,turn) {
+    let direction = (turn === 1) ? 1 : (-1)
+    let moves = [];
+
+    if( typeof [obj.y+direction] !== 'undefined' && squares[obj.x+1][obj.y+direction].piece === null){
+      moves.push([0,direction]);
+    }
+
+
+    if(typeof squares[obj.x+1] !== 'undefined' && typeof [obj.y+direction] !== 'undefined'){
+      if(squares[obj.x+1][obj.y+direction].piece !== null && squares[obj.x+(-1)][obj.y+direction].team !== turn){
+        moves.push([1,direction]);
+      }
+    }
+
+    if(typeof squares[obj.x-1] !== 'undefined' && typeof [obj.y+direction] !== 'undefined'){
+      if(squares[obj.x+(-1)][obj.y+direction].piece !== null && squares[obj.x+(-1)][obj.y+direction].team !== turn ){
+        moves.push([(-1),direction]);
+      }
+    }
+
+    let positionPossible = moves.map(move => [move[0]+obj.x, move[1]+ obj.y]);
+    let filterOut = positionPossible.filter(move => (move[0] >= 0 && move[0] < 8 && move[1] >= 0 && move[1] < 8));
+
+    return [filterOut];
+  }
+
+
+
+
+
   function squarePossible(obj) {
+    if(obj.piece ==='pawn'){
+      let pawnAction = pawnMove(obj, turn);
+      return pawnAction;
+    }
+
     let moves = pieceMove(obj.piece);
     let outofBoard = deleteOutMoves(moves, obj.x, obj.y);
     //console.log(outofBoard);
@@ -127,8 +179,13 @@ function GameBoard() {
 
   }
 
+
+
+
+
+
   function clickSquare ({obj}) {
-    if(selected === ''){ // select square
+    if(selected === '' && obj.team === turn ){ // select square
       let {x,y} = obj;
       setSelected({x, y});
       let temp = squarePossible(obj);
@@ -150,6 +207,8 @@ function GameBoard() {
       }
     }
   }
+
+
 
 
 
