@@ -10,8 +10,7 @@
     this.x =  x1,
     this.y = y1,
     this.piece = null,
-    this.team = null,
-    this.selected = null
+    this.team = null
   }
 
   function initiateAxis() {
@@ -61,4 +60,4 @@
   }
 
 
-export {initiateBoard};
+export {initiateBoard, ObjSquare};
