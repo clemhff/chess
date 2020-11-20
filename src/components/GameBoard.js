@@ -25,6 +25,7 @@ function GameBoard() {
           key= {v.x.toString() + v.y.toString()}
           obj= {v}
           clickSquare= {clickSquare}
+          background = {background}
         />
       );
     });
@@ -44,6 +45,17 @@ function GameBoard() {
   }
 
 
+  function background(x,y) {
+    if (selected[0] === x && selected[1] === y){
+      return "purple" ;
+    }
+    for (let i = 0; i < possible.length; i++){
+      if (possible[i][0] === x && possible[i][1] === y){
+        return "green";
+      }
+    }
+    return "white"
+  }
 
 
 
