@@ -13,7 +13,7 @@ function Square(prop) {
       onClick={() => prop.clickSquare(prop)}
       style={mystyle}
       >
-    {prop.obj.piece}
+      {prop.obj.src !== null ? <img src={process.env.PUBLIC_URL + prop.obj.src }/> : null}
     </div>
   );
 }
